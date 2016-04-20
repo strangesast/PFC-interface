@@ -1,0 +1,85 @@
+extends layout-header
+
+block main-content
+  .container.first-container
+    .row#about
+      .col-sm-12
+        h1 Calculations
+        p Create a new calculation with the parameters specified or begin with a blank file.
+        p First, describe calculation parameters. After you create a new calculation with 'save', a job will be added to a queue.  Status updates will be emailed to you.
+        p After the job is completed, the raw exodus file, data (in CSV), and images from the calculation will be available next to the calculation in the list below.
+
+    .row#list
+      .col-sm-12
+        h1 Current Calculations
+      if calculations && calculations.length > 0
+        each calc in calculations
+          .col-sm-4
+            p #{calc.creator}
+
+      else
+        .col-sm-12
+          p No calculations found.
+
+    .row#new
+      .col-md-12.row
+        .col-md-12
+          h1 Create a new calculation
+
+        if template_names && template_names.length > 0
+          form.col-md-8(action="/calc/new", method="POST")
+            h3 Choose an initial template
+  
+            .form-group
+              label(for="template-select") Template
+              select(name="original-template")#template-select.form-control
+                each template_name in template_names
+                  option(value=template_name) #{template_name}
+
+            .form-group
+              label(for="template-new-name") Name
+              input#template-new-name.form-control(name="name", type="text", required=true, title="calculation name")
+  
+            .form-group
+              #template-preview
+                h3 Template Preview
+                ul#tabs.nav.nav-tabs(data-tabs="tabs")
+                  li.active
+                    a(href="#template-preview-formatted" data-toggle="tab") Formatted
+                  li
+                    a(href="#template-preview-raw" data-toggle="tab") Raw
+                #template-preview.tab-content
+                  #template-preview-formatted.tab-pane.active
+                    h3 Formatted
+                  textarea(name="input-file", cols=50, rows=10)#template-preview-raw.tab-pane
+                    h3 Raw
+    
+            button.btn.btn-primary#save-button-template Save
+
+        else
+          form.col-md-8(action="/calc/new", method="POST", disabled=true)
+            h3 Choose an initial template
+
+            .form-group
+              label(for="template-select") Template
+              select#template-select.form-control.disabled(disabled=true)
+                option No templates available
+   
+        form(action="/calc/new", method="POST").col-md-4
+          h3 Start from scratch
+          .form-group
+            label(for="template-name") Name
+            input#template-name.form-control(name="name", type="text", required=true, title="calculation name")
+
+          label(for="scratch-input-file") Input file
+          .form-group
+            textarea#scratch-input-file(name="input-file", cols=40, rows=8)
+          button(type="submit").btn.btn-primary#save-button-scratch Save
+
+    .errors
+      if error
+        h1 Error!
+        p #{error}
+
+block scripts
+  script(src="/javascripts/calc.js")

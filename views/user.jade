@@ -1,0 +1,22 @@
+extends layout-header
+
+block main-content
+  .container.first-container
+    h1 #{user.username}
+    h3 Your calculations
+    .row 
+      if calculations && calculations.length > 0
+        each calc in calculations
+          .col-md-4
+            #{calc}
+
+      else 
+        .col-sm-12
+          p No calculations... yet.
+
+      .col-sm-12
+        a.btn.btn-primary(href="/calc/new") Create new.
+
+    .row
+      .col-md-2
+        a.btn.btn-default(href="/user/logout") Log out

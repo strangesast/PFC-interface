@@ -1,0 +1,42 @@
+extends layout-header
+
+block main-content
+  .jumbotron
+    .container
+      h1 TURKEY
+      p Front-end interface for PFC Application
+  .container
+    .row
+      #about.col-md-4
+        h2 About
+        p Turkey is an interface and management system for the Phase Particle Calculation (PFC) application, written by Professor Ioannis Mastorakos of Clarkson University. After you have created and validated your account, you may create an run simulations by maninpulating input files for this application. Caculation status and results will be provided as they are available.
+      #create-new.col-md-8
+        h2 Create new
+        p Create a new simulation based on a template input file or start from scratch.
+        a.btn.btn-default.btn-lg(href="/calc/new") Begin
+
+      #examples.col-md-12
+        h2 Examples
+        .row
+          #example-1.col-sm-4
+            h4 Example 1
+            p This is a description of example 1
+            img(src="/images/example1.png")
+
+          #example-2.col-sm-4
+            h4 Example 2
+            p This is a description of example 2
+            img(src="/images/example2.png")
+
+          #example-3.col-sm-4
+            h4 Example 3
+            p This is a description of example 3
+            img(src="/images/example3.png")
+
+
+
+  footer.footer
+    .container
+      span TURKEY Developers
+      a(href="https://github.com/strangesast/PFC/")
+        span Github

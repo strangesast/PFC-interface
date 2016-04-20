@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .container
+    form.form-signin(action="/user/register", method="POST")
+      h2.form-signin-heading Register
+      label.sr-only(for="user-email") Email address
+      input#user-email.form-control(type="email", title="You must use a clarkson email address.", pattern=".+@clarkson.edu", placeholder="person@clarkson.edu", required=true, autofocus=true, name="username")
+      label.sr-only(for="user-password") Password
+      input#user-password.form-control(type="password", pattern=".+", title="Password must be at least 1 character", placeholder="password", required=true, name="password")
+  
+      button.btn.btn-primary.btn-block(type="submit") Submit
+
+      h4 or
+
+      a.btn.btn-default.btn-block(href="/user/login") Log in
+      a(href="/") Cancel
+
+      if errors
+        .errors
+          h2 Errors!
+          | #{errors}

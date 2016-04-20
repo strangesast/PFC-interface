@@ -1,0 +1,16 @@
+{
+  "name": "turkey",
+  "description": "Interface for PFC Moose application",
+  "main": "",
+  "authors": [
+    "Sam Zagrobelny <strangesast@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "jquery": "^2.2.3",
+    "bootstrap": "^3.3.6"
+  }
+}
