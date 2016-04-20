@@ -13,7 +13,7 @@ Calculation = new Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'active', 'finished'],
+    enum: ['pending', 'reading', 'active', 'finished'],
     default: 'pending',
     required: true
   },
@@ -21,6 +21,9 @@ Calculation = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Account',
     required: true
+  }
+  procid: {
+    type: Number
   }
 }, {
   timestamps: true

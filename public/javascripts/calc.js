@@ -45,3 +45,6 @@ var saveButtonClickEvent = function(e) {
 //
 var saveButtonTemplate = document.getElementById('save-button-template');
 var saveButtonScratch = document.getElementById('save-button-scratch');
+
+var socketurl = "ws://" + window.location.hostname + ":" + window.location.port + "/sockets";
+var socket = new WebSocket(socketurl);
