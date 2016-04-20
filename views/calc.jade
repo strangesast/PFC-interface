@@ -1,7 +1,7 @@
 extends layout-header
 
 block main-content
-  .container.first-container
+  .container
     .row#about
       .col-sm-12
         h1 Calculations
@@ -12,14 +12,22 @@ block main-content
     .row#list
       .col-sm-12
         h1 Current Calculations
-      if calculations && calculations.length > 0
-        each calc in calculations
-          .col-sm-4
-            p #{calc.creator}
+      .col-sm-12
+        if calculations && calculations.length > 0
+          .list-group
+            each calc in calculations
+              .list-group-item
+                span.badge
+                  | #{calc.status}
+                h4.list-group-item-heading #{calc.name}
+                .list-group-item-text.calc-description
+                  a(href="/calc/#{calc._id}/input-file") input file
+                  if calc.owner.username !== user.username
+                    a(href="mailto:#{calc.owner.username}") #{calc.owner.username)
 
-      else
-        .col-sm-12
-          p No calculations found.
+        else
+          .col-sm-12
+            p No calculations found.
 
     .row#new
       .col-md-12.row

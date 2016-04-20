@@ -5,18 +5,22 @@ block main-content
     h1 #{user.username}
     h3 Your calculations
     .row 
-      if calculations && calculations.length > 0
-        each calc in calculations
-          .col-md-4
-            #{calc}
+      .col-sm-12
+        if calculations && calculations.length > 0
+          .list-group
+            each calc in calculations
+              .list-group-item
+                span.badge
+                  | #{calc.status}
+                h4.list-group-item-heading #{calc.name}
+                .list-group-item-text.calc-description
+                  a(href="/calc/#{calc._id}/input-file") input file
 
-      else 
-        .col-sm-12
-          p No calculations... yet.
+        else 
+          .col-sm-12
+            p No calculations... yet.
 
       .col-sm-12
-        a.btn.btn-primary(href="/calc/new") Create new.
-
-    .row
-      .col-md-2
-        a.btn.btn-default(href="/user/logout") Log out
+        .btn-group
+          a.btn.btn-primary(href="/calc/new") Create new.
+          a.btn.btn-default(href="/user/logout") Log out

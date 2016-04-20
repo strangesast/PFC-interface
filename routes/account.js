@@ -4,6 +4,7 @@ var Account = require('../models/account');
 var multer = require('multer');
 var upload = multer();
 var router = express.Router();
+var Calculation = require('../models/calculation');
 
 router.use(function(req, res, next) {
   if(req.user) {
@@ -14,7 +15,11 @@ router.use(function(req, res, next) {
 
 router.get('/', function(req, res, next) {
   if(req.user) {
-    return res.render('user');
+    Calculation.find({'owner' : req.user._id}).then(function(calculations) {
+      return res.render('user', {calculations: calculations});
+    }).catch(function(err) {
+      return next(err);
+    });
   } else {
     return res.redirect('/');
   }

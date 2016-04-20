@@ -1,6 +1,7 @@
 var express = require('express');
 var fs = require('fs');
 var router = express.Router();
+var Calculation = require('../models/calculation');
 
 router.use(function(req, res, next) {
   if(req.user) {
@@ -19,7 +20,15 @@ router.get('/calc/new', function(req, res, next) {
 
 router.post('/calc/new', function(req, res, next) {
   if(req.user) {
-    return res.json(req.body);
+    var body = req.body;
+    body.owner = req.user._id;
+
+    var calc = new Calculation(body);
+    calc.save().then(function(result) {
+      return res.redirect('/calc');
+    }).catch(function(err) {
+      return next(err);
+    });
 
   } else {
     req.flash('error', 'Must be logged in to create new calculation');
@@ -29,12 +38,26 @@ router.post('/calc/new', function(req, res, next) {
 
 router.get('/calc', function(req, res, next) {
   return fs.readdir('./input_templates', function(err, files) {
-    var err = req.flash('error')
-    return res.render('calc', {
-      calculations: [],
-      template_names: files,
-      error: ('length' in err) ? (err.length > 0 ? err : undefined) : undefined
+    return Calculation.find({}).populate('owner').then(function(calculations) {
+      var err = req.flash('error')
+      return res.render('calc', {
+        calculations: calculations,
+        template_names: files,
+        error: ('length' in err) ? (err.length > 0 ? err : undefined) : undefined
+      });
+    }).catch(function(err) {
+      return next(err);
     });
+  });
+});
+
+router.get('/calc/:calcId/input-file', function(req, res, next) {
+  var calcId = req.params.calcId;
+  return Calculation.findById(calcId).then(function(doc) {
+    res.set('Content-Type', 'text/plain');
+    return res.send(doc['input-file']);
+  }).catch(function(err) {
+    return next(err);
   });
 });
 
