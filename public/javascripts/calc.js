@@ -11,6 +11,8 @@ var getTemplateFilename = function(evt) {
 
     templatePreviewRaw.textContent = responseText;
     var vars = inputFileProc.grabVariables(responseText);
+    var vars2 = inputFileProc.grabVariables2(responseText);
+    console.log(vars2);
     inputFileProc.printVars(vars, templatePreviewFormatted);
 
   });

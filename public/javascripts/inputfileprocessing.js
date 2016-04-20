@@ -1,8 +1,6 @@
 var inputFileProc = function() {
   var printVars = function(vars, parentElement) {
-    console.log(1)
     general.removeChildren(parentElement);
-    console.log(2)
     for(var prop in vars) {
       var outerElem = general.createElementWithProp('form', {'name': prop, 'type':'outerblock'});
       var headingElem = general.createElementWithProp('h1', {}, prop[0].toUpperCase() + prop.slice(1));
@@ -134,8 +132,65 @@ var inputFileProc = function() {
     console.log(e);
   };
 
+  var re1 = /(\[(\w+)\][\s\S]*?\[\])/g;
+  //var re2 = /(\[\.\/(\w+)\][\s\S]*?\[\.\.\/\])/g;
+  var re2 = /(\[\.\/(\w+)\][\s\S]*?(\[\.\/(\w+)\][\s\S]*?[\s\S]*?\[\.\.\/\][\s\S]*?)*\[\.\.\/\])/g;
+  var re3 = /(\w+)\s*=\s*(.+)/g;
+
+  var cops = function(ar) {
+    ar.forEach(function(both) {
+      var varName = both[1];
+      console.log(varName + '=======');
+      var text = both[0];
+
+      var both = getMatches(text, re2, true)
+      var groups = both[0];
+      groups.forEach(function(both) {
+        var varName = both[1];
+        console.log(varName + ':' + '{}')
+        var text = both[0];
+
+        var both = getMatches(text, re2, true);
+        var groups = both[0];
+        groups.forEach(function(both) {
+          var varName = both[1];
+          console.log(varName + ':' + '{}')
+          var text = both[0];
+          var both = getMatches(text, re2, true);
+          var groups = both[0];
+          // etc
+          var defs = getMatches(both[1], re3, true);
+          defs[0].forEach(function(pair) {
+            console.log(pair[0] + ':' + pair[1]);
+          });
+        });
+        var defs = getMatches(both[1], re3, true);
+        defs[0].forEach(function(pair) {
+          console.log(pair[0] + ':' + pair[1]);
+        });
+      })
+      var defs = getMatches(both[1], re3, true);
+      defs[0].forEach(function(pair) {
+        console.log(pair[0] + ':' + pair[1]);
+      });
+    });
+  };
+
+  var grabVariables2 = function(text) {
+    // get large groups
+    //var re1 = /(\[\w+\][\s\S]*?\[\])/g;
+
+    let both = getMatches(text, re1, true);
+    var outerVars = both[0];
+    var ob = {}
+
+    cops(outerVars)
+
+  };
+ 
   return {
     printVars: printVars,
-    grabVariables: grabVariables
+    grabVariables: grabVariables,
+    grabVariables2: grabVariables2
   }
 }();
