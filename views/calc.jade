@@ -22,7 +22,7 @@ block main-content
                 h4.list-group-item-heading #{calc.name}
                 .list-group-item-text.calc-description
                   a(href="/calc/#{calc._id}/input-file") input file
-                  if calc.owner.username !== user.username
+                  if !user || (user && calc.owner.username !== user.username)
                     a(href="mailto:#{calc.owner.username}") #{calc.owner.username)
 
         else
