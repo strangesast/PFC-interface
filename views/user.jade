@@ -15,6 +15,12 @@ block main-content
                 h4.list-group-item-heading #{calc.name}
                 .list-group-item-text.calc-description
                   a(href="/calc/#{calc._id}/input-file") input file
+                  if calc.status == 'finished' || calc.status == 'active'
+                    a(href="/calc/#{calc._id}/file/current_progress.log") current status
+                  if calc.status == 'finished'
+                    a(href="/calc/#{calc._id}/file/out.e") exodus
+                    a(href="/calc/#{calc._id}/file/out.csv") csv
+
 
         else 
           .col-sm-12

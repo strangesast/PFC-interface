@@ -26,6 +26,8 @@ block main-content
                     a(href="/calc/#{calc._id}/file/current_progress.log") current status
                   if calc.status == 'finished'
                     a(href="/calc/#{calc._id}/file/out.e") exodus
+                    a(href="/calc/#{calc._id}/file/out.csv") csv
+
                   if !user || (user && calc.owner.username !== user.username)
                     a(href="mailto:#{calc.owner.username}") #{calc.owner.username)
 
