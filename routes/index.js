@@ -61,6 +61,29 @@ router.get('/calc/:calcId/input-file', function(req, res, next) {
   });
 });
 
+router.get('/calc/:calcId/file/:fileName', function(req, res, next) {
+  var calcId = req.params.calcId;
+  var fileName = req.params.fileName;
+  return Calculation.findById(calcId).then(function(doc) {
+    if(doc.status == 'finished') {
+      return fs.readFile('./calculation/' + calcId + '/' + fileName, function(err, file) {
+        if(err) {
+          return next(err);
+        }
+        res.set('Content-Type', 'text/plain');
+        return res.send(file);
+      });
+
+    } else {
+      return res.send('not finished');
+    }
+  }).catch(function(err) {
+    return next(err);
+  });
+});
+
+
+
 router.get('/templates/:templateName', function(req, res, next) {
   var templateName = req.params.templateName;
   return fs.readFile('./input_templates/' + templateName, function(err, file) {
