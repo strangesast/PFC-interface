@@ -183,8 +183,9 @@
 []
 
 [Outputs]
-  file_base = p01b2
+  file_base = out
   exodus = true
+  csv = true
   interval = 10
 []
 

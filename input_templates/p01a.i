@@ -170,6 +170,7 @@
 
 [Outputs]
   exodus = true
-  file_base = p01a
+  file_base = out
+  csv = true
 []
 
