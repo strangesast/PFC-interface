@@ -2,9 +2,9 @@
 ## Installation
 + Install nodejs / npm
 + install global dependencies
-..* bower (npm)
-..* redis
-..* mongodb (or use an existing instance)
+  * bower (npm)
+  * redis
+  * mongodb (or use an existing instance)
 + run `npm install`
 + run `bower install`
 + configure `config.json` to specify the correct mongodb url and pfc installation directory
