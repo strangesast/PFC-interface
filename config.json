@@ -1,0 +1,6 @@
+{
+  "mongoDatabaseURL" : "mongodb://samzagrobelny.com:27017/turkey",
+  "secret" : "password123",
+  "PFC_loc" : "$HOME/projects/PFC/",
+  "max_comp_length" : 1000000
+}

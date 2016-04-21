@@ -13,7 +13,7 @@ Calculation = new Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'reading', 'active', 'finished'],
+    enum: ['pending', 'reading', 'active', 'finished', 'error'],
     default: 'pending',
     required: true
   },
