@@ -21,7 +21,7 @@ Calculation = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Account',
     required: true
-  }
+  },
   procid: {
     type: Number
   }
