@@ -12,12 +12,12 @@ with open('config.json', 'r') as f:
     config = json.load(f)
 
 pfcbinarypath = os.path.join(os.path.expandvars(config['PFC_loc']), 'PFC-opt')
-print(pfcbinarypath)
 
 if not os.path.isfile(pfcbinarypath):
-    print('binary not found')
+    print('binary not found! ({})'.format(pfcbinarypath))
+    raise Exception
 
-client = MongoClient("mongodb://samzagrobelny.com:27017")
+client = MongoClient(config['mongoDatabaseURL'])
 
 db = client.turkey
 col = db.calculations
